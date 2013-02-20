@@ -5,7 +5,8 @@ Gem::Specification.new do |s|
   s.email   = 'lion@giantmonkey.de'
   s.summary = 'DependentFields makes it easy to hide or show dependent fields in forms based on select or checkbox values'
   s.homepage = 'https://github.com/vollnhals/dependent-fields-rails'
-  s.files   = Dir["vendor/assets/javascripts/*.js.coffee", "README.md", "MIT-LICENSE"]
+  s.files   = Dir["lib/*", "vendor/assets/javascripts/*.js.coffee", "README.md", "MIT-LICENSE"]
   
   s.add_dependency 'coffee-rails'
+  s.add_dependency "railties", "~> 3.1"
 end
