@@ -19,28 +19,42 @@ toggle = ($parent, showOrHide, method, duration) ->
     else
       $parent.hide(duration)
 
-showOrHideDependentFields = (duration = 'fast') ->
+
+showOrHideDependentFieldsSelect = (duration = 'fast') ->
   $select = $(this)
 
-  # fields that depend on a select option
-  $(".js-dependent-fields[data-select-id=#{$select.attr('id')}]").each ->
+  showOrHideFields = ->
     $this = $(this)
     # use attr here instead of data because we do not want jquery to cast the string into js types
     showOrHide = _.contains($this.attr('data-option-value').split('|'), $select.val())
     toggle($this, showOrHide, $this.data('method'), duration)
 
-  # fields that depend on a checkbox
-  $(".js-dependent-fields[data-checkbox-id=#{$select.attr('id')}]").each ->
+  $(".js-dependent-fields[data-select-id=#{$select.attr('id')}]").each showOrHideFields
+
+
+showOrHideDependentFieldsCheckbox = (duration = 'fast') ->
+  $checkbox = $(this)
+
+  showOrHideFields = ->
     $this = $(this)
-    showOrHide = $this.data('checkbox-value') == $select.is(':checked')
+    showOrHide = $this.data('checkbox-value') == $checkbox.is(':checked')
     toggle($this, showOrHide, $this.data('method'), duration)
 
-bind = ->
-  $('select').each _.partial(showOrHideDependentFields, 0)
-  $('select').change showOrHideDependentFields
+  $(".js-dependent-fields[data-checkbox-id=#{$checkbox.attr('id')}]").each showOrHideFields
 
-  $('input[type=checkbox]').each _.partial(showOrHideDependentFields, 0)
-  $('input[type=checkbox]').change showOrHideDependentFields
+
+bind = ->
+  $selects = $('select')
+  $selects.not('[data-important]').each _.partial(showOrHideDependentFieldsSelect, 0)
+  $selects.filter('[data-important]').each _.partial(showOrHideDependentFieldsSelect, 0)
+
+  $selects.change showOrHideDependentFieldsSelect
+
+  $inputs = $('input[type=checkbox]')
+  $inputs.not('[data-important]').each _.partial(showOrHideDependentFieldsCheckbox, 0)
+  $inputs.filter('[data-important]').each _.partial(showOrHideDependentFieldsCheckbox, 0)
+
+  $inputs.change showOrHideDependentFieldsCheckbox
 
 
 @DependentFields = {
