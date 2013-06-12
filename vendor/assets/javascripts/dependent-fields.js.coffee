@@ -43,6 +43,20 @@ showOrHideDependentFieldsCheckbox = (duration = 'fast') ->
   $(".js-dependent-fields[data-checkbox-id=#{$checkbox.attr('id')}]").each showOrHideFields
 
 
+showOrHideDependentFieldsRadio = (duration = 'fast') ->
+  $radio = $(this)
+
+  showOrHideFields = ->
+    $this = $(this)
+    # use checked radio input of this radio input group
+    $checkedRadio = $("input:checked[name=#{$radio.attr('name').replace('[', '\\[').replace(']', '\\]')}]")
+    # use attr here instead of data because we do not want jquery to cast the string into js types
+    showOrHide = _.contains($this.attr('data-radio-value').split('|'), $checkedRadio.val())
+    toggle($this, showOrHide, $this.data('method'), duration)
+
+  $(".js-dependent-fields[data-radio-name=#{$radio.attr('name').replace('[', '\\[').replace(']', '\\]')}]").each showOrHideFields
+
+
 bind = ->
   $selects = $('select')
   $selects.not('[data-important]').each _.partial(showOrHideDependentFieldsSelect, 0)
@@ -55,6 +69,12 @@ bind = ->
   $inputs.filter('[data-important]').each _.partial(showOrHideDependentFieldsCheckbox, 0)
 
   $inputs.change showOrHideDependentFieldsCheckbox
+
+  $radios = $('input[type=radio]')
+  $radios.not('[data-important]').each _.partial(showOrHideDependentFieldsRadio, 0)
+  $radios.filter('[data-important]').each _.partial(showOrHideDependentFieldsRadio, 0)
+
+  $radios.change showOrHideDependentFieldsRadio
 
 
 @DependentFields = {

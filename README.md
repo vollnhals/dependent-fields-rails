@@ -56,6 +56,22 @@ Note the data attributes on the js-dependent-fields div.
 The date and filing_nr fields will only be shown if the user checks the priority_enabled field.
 
 
+### Depending on a radio input element
+
+Relevant radio inputs are selected by name and not by id, because radio inputs in the same group have different ids but the same name.
+Note the data attributes on the js-dependent-fields div.
+
+    = simple_form_for(@filing) do
+        = f.input :registration_office, collection: ['habm', 'dpma'], as: :radio_buttons
+
+        .js-dependent-fields[data-radio-name='filing[registration_office]' data-radio-value='habm']
+            = f.input :language, collection: ['english', 'german']
+
+The language selector will only be shown if the user selects 'habm' in the registration office.
+
+You can also specify multiple option values by seperating them with `|`. For example: `data-option-value='habm|dpma'`
+
+
 ### Disabling instead of hiding fields
 
 Add `data-method='disable'` to the js-dependent-fields div.
