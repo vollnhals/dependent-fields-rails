@@ -69,7 +69,7 @@ Note the data attributes on the js-dependent-fields div.
 
 The language selector will only be shown if the user selects 'habm' in the registration office.
 
-You can also specify multiple option values by seperating them with `|`. For example: `data-option-value='habm|dpma'`
+You can also specify multiple option values by seperating them with `|`. For example: `data-radio-value='habm|dpma'`
 
 
 ### Disabling instead of hiding fields
