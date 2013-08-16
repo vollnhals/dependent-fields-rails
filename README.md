@@ -19,6 +19,12 @@ Installation
 1. Restart your server and everything should be set up. See Usage below on how to declare your dependent fields in views.
 
 
+Dependencies
+------------
+
+Be sure to include underscorejs and jquery in your page.
+
+
 Usage
 -------
 
@@ -79,3 +85,7 @@ Add `data-method='disable'` to the js-dependent-fields div.
 
 
 
+Minimal Demo
+------------
+
+http://jsfiddle.net/mwhSt/
