@@ -89,3 +89,11 @@ Minimal Demo
 ------------
 
 http://jsfiddle.net/mwhSt/
+
+
+Changelog
+---------
+
+### 0.4.1
+
+fix escaping of attribute names. thanks to nagyt234 for the pull request.
