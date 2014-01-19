@@ -9,5 +9,5 @@ Gem::Specification.new do |s|
 
   s.add_dependency 'jquery-rails'
   s.add_dependency 'coffee-rails'
-  s.add_dependency "railties", "~> 4.0"
+  s.add_dependency "railties", ">= 3.1"
 end
