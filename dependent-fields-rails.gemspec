@@ -1,6 +1,6 @@
 Gem::Specification.new do |s|
   s.name    = 'dependent-fields-rails'
-  s.version = '0.4.0'
+  s.version = '0.4.2'
   s.author  = 'Lion Vollnhals'
   s.email   = 'lion@giantmonkey.de'
   s.summary = 'DependentFields makes it easy to hide or show dependent fields in forms based on select or checkbox values'
