@@ -14,7 +14,7 @@ Installation
 
         $(document).ready(function() {
             DependentFields.bind()
-        }
+        });
 
 1. Restart your server and everything should be set up. See Usage below on how to declare your dependent fields in views.
 
