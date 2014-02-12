@@ -96,9 +96,9 @@ Changelog
 
 ### 0.4.2
 
-make it compatible with rails4. thanks to mcbridejc for the pull request.
-fix an example in the README. thanks to michaelkeenan for the pull request.
+* make it compatible with rails4. thanks to mcbridejc for the pull request.
+* fix an example in the README. thanks to michaelkeenan for the pull request.
 
 ### 0.4.1
 
-fix escaping of attribute names. thanks to nagyt234 for the pull request.
+* fix escaping of attribute names. thanks to nagyt234 for the pull request.
