@@ -18,6 +18,7 @@ toggle = ($parent, showOrHide, method, duration) ->
       $parent.find('.select2').select2('disable') if $.fn.select2
     else
       $parent.hide(duration)
+      $parent.find('input:checked').prop('checked', false)
 
 
 showOrHideDependentFieldsSelect = (duration = 'fast') ->
