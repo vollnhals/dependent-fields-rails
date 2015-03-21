@@ -5,19 +5,19 @@
 
 toggle = ($parent, showOrHide, method, duration) ->
   if showOrHide
-    if method == 'disable'
+    if method != 'hide' # disable or default
       # use attr instead of prop, because prop does not work with twitter bootstrap button
       $parent.find('input,textarea,select,button,.btn').removeAttr('disabled')
       $parent.find('.select2').select2('enable') if $.fn.select2
-    else
+    if method != 'disable' # hide or default
       $parent.find('input[data-dependent-fields-required],textarea[data-dependent-fields-required],select[data-dependent-fields-required]').attr('required', 'required')
       $parent.show(duration)
   else
-    if method == 'disable'
+    if method != 'hide' # disable or default
       # use attr instead of prop, because prop does not work with twitter bootstrap button
       $parent.find('input,textarea,select,button,.btn').attr('disabled', 'disabled')
       $parent.find('.select2').select2('disable') if $.fn.select2
-    else
+    if method != 'disable' # hide or default
       $parent.find('input[required],textarea[required],select[required]').removeAttr('required').attr('data-dependent-fields-required', 'required')
       $parent.hide(duration)
 

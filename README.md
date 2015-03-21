@@ -83,6 +83,7 @@ You can also specify multiple option values by seperating them with `|`. For exa
 
 Add `data-method='disable'` to the js-dependent-fields div.
 
+**Note:** The default is now hide and disable the fields and enable them on again when showing. This is to prevent the hidden dependent fields from being submitted. The old behavior can be archived when add `data-method='hide'` to the js-dependent-fields div.
 
 
 Minimal Demo
