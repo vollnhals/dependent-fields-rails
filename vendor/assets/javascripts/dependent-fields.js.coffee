@@ -6,17 +6,30 @@
 toggle = ($parent, showOrHide, method, duration) ->
   fieldsSelector = 'input,textarea,select'
   fieldsAndBtnsSelector = 'input,textarea,select,button,.btn'
+  parentVisibleSelector = ':not(.js-dependent-fields-hidden)'
   if showOrHide
-    $parentVisible = $parent.find(':not(.js-dependent-fields:hidden)')
+    $parent.removeClass 'js-dependent-fields-hidden'
+    $parentVisible = $parent.find(parentVisibleSelector)
     if method != 'hide' # disable or default
       # use attr instead of prop, because prop does not work with twitter bootstrap button
-      $parentVisible.find(fieldsAndBtnsSelector).removeAttr('disabled')
-      $parentVisible.find('.select2').select2('enable') if $.fn.select2
+      $fieldsAndBtns = $parentVisible.find(fieldsAndBtnsSelector)
+      $fieldsAndBtns.filter('[data-dependent-fields-disabled=no]').removeAttr('disabled')
+      $fieldsAndBtns.removeAttr('data-dependent-fields-disabled')
+      if $.fn.select2
+        $select2 = $parentVisible.find('.select2')
+        $select2.filter('[data-dependent-fields-disabled=no]').select2('enable')
+        $select2.removeAttr('data-dependent-fields-disabled')
     if method != 'disable' # hide or default
       $parentVisible.find(fieldsSelector).filter('[data-dependent-fields-required]').attr('required', 'required')
       $parent.show(duration)
   else
+    $parent.addClass 'js-dependent-fields-hidden'
     if method != 'hide' # disable or default
+      # store the disabled state
+      $fieldsAndBtns = $parent.find(fieldsAndBtnsSelector+',.select2').not('[data-dependent-fields-disabled]')
+      $fieldsAndBtns.filter('[disabled]').attr('data-dependent-fields-disabled', 'yes')
+      $fieldsAndBtns.not('[disabled]').attr('data-dependent-fields-disabled', 'no')
+      # disable things
       # use attr instead of prop, because prop does not work with twitter bootstrap button
       $parent.find(fieldsAndBtnsSelector).attr('disabled', 'disabled')
       $parent.find('.select2').select2('disable') if $.fn.select2
