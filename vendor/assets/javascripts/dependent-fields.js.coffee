@@ -77,21 +77,15 @@ showOrHideDependentFieldsRadio = (duration = 'fast') ->
 
 bind = ->
   $selects = $('select')
-  $selects.not('[data-important]').each _.partial(showOrHideDependentFieldsSelect, 0)
-  $selects.filter('[data-important]').each _.partial(showOrHideDependentFieldsSelect, 0)
-
+  $selects.each _.partial(showOrHideDependentFieldsSelect, 0)
   $selects.change showOrHideDependentFieldsSelect
 
   $inputs = $('input[type=checkbox]')
-  $inputs.not('[data-important]').each _.partial(showOrHideDependentFieldsCheckbox, 0)
-  $inputs.filter('[data-important]').each _.partial(showOrHideDependentFieldsCheckbox, 0)
-
+  $inputs.each _.partial(showOrHideDependentFieldsCheckbox, 0)
   $inputs.change showOrHideDependentFieldsCheckbox
 
   $radios = $('input[type=radio]')
-  $radios.not('[data-important]').each _.partial(showOrHideDependentFieldsRadio, 0)
-  $radios.filter('[data-important]').each _.partial(showOrHideDependentFieldsRadio, 0)
-
+  $radios.each _.partial(showOrHideDependentFieldsRadio, 0)
   $radios.change showOrHideDependentFieldsRadio
 
 
