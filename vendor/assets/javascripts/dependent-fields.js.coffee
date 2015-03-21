@@ -10,6 +10,7 @@ toggle = ($parent, showOrHide, method, duration) ->
       $parent.find('input,textarea,select,button,.btn').removeAttr('disabled')
       $parent.find('.select2').select2('enable') if $.fn.select2
     else
+      $parent.find('input[data-dependent-fields-required],textarea[data-dependent-fields-required],select[data-dependent-fields-required]').attr('required', 'required')
       $parent.show(duration)
   else
     if method == 'disable'
@@ -17,6 +18,7 @@ toggle = ($parent, showOrHide, method, duration) ->
       $parent.find('input,textarea,select,button,.btn').attr('disabled', 'disabled')
       $parent.find('.select2').select2('disable') if $.fn.select2
     else
+      $parent.find('input[required],textarea[required],select[required]').removeAttr('required').attr('data-dependent-fields-required', 'required')
       $parent.hide(duration)
 
 
