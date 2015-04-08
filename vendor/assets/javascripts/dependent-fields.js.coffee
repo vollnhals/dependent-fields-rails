@@ -14,11 +14,11 @@ toggle = ($parent, showOrHide, method, duration) ->
       # use attr instead of prop, because prop does not work with twitter bootstrap button
       $fieldsAndBtns = $parentVisible.find(fieldsAndBtnsSelector)
       $fieldsAndBtns.filter('[data-dependent-fields-disabled=no]').removeAttr('disabled')
-      $fieldsAndBtns.removeAttr('data-dependent-fields-disabled')
       if $.fn.select2
         $select2 = $parentVisible.find('.select2')
         $select2.filter('[data-dependent-fields-disabled=no]').select2('enable')
         $select2.removeAttr('data-dependent-fields-disabled')
+      $fieldsAndBtns.removeAttr('data-dependent-fields-disabled')
     if method != 'disable' # hide or default
       $parentVisible.find(fieldsSelector).filter('[data-dependent-fields-required]').attr('required', 'required')
       $parent.show(duration)
