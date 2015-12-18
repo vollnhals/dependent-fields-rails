@@ -12,8 +12,8 @@ Installation
 1. Add `//= require dependent-fields` to your Javascript manifest file (usually found at `app/assets/javascripts/application.js`).
 1. Bind events, for example with jquery:
 
-        $(document).ready(function() {
-            DependentFields.bind()
+        $(document).on('ready page:load', function() {
+            DependentFields.bind();
         });
 
 1. Restart your server and everything should be set up. See Usage below on how to declare your dependent fields in views.
