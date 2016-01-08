@@ -8,15 +8,21 @@ Installation
 ------------
 
 1. Add `gem 'dependent-fields-rails'` to your Gemfile.
-1. Run `bundle install`.
-1. Add `//= require dependent-fields` to your Javascript manifest file (usually found at `app/assets/javascripts/application.js`).
-1. Bind events, for example with jquery:
+2. Run `bundle install`.
+3. Add `//= require dependent-fields` to your Javascript manifest file (usually found at `app/assets/javascripts/application.js`).
+4.1 Bind events, for example with jquery:
+        
+        $(document).ready(function() {
+            DependentFields.bind();
+        });
+
+4.2 If your application has Turbolinks enabled you will need to use the jQuery below instead to bind the events:
 
         $(document).on('ready page:load', function() {
             DependentFields.bind();
         });
 
-1. Restart your server and everything should be set up. See Usage below on how to declare your dependent fields in views.
+5. Restart your server and everything should be set up. See Usage below on how to declare your dependent fields in views.
 
 
 Dependencies
