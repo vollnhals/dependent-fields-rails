@@ -4,19 +4,37 @@
 
 
 toggle = ($parent, showOrHide, method, duration) ->
+  fieldsSelector = 'input,textarea,select'
+  fieldsAndBtnsSelector = fieldsSelector+',button'
+  parentVisibleSelector = ':not(.js-dependent-fields-hidden)'
   if showOrHide
-    if method == 'disable'
+    $parent.removeClass 'js-dependent-fields-hidden'
+    $parentVisible = $parent.find(parentVisibleSelector)
+    if method != 'hide' # disable or default
+      $fieldsAndBtns = $parentVisible.find(fieldsAndBtnsSelector)
+      # only enable if it was enabled before hiding
+      $fieldsAndBtns.filter("[data-dependent-fields-disabled='no']").prop('disabled', false)
+      $fieldsAndBtns.removeAttr('data-dependent-fields-disabled')
       # use attr instead of prop, because prop does not work with twitter bootstrap button
-      $parent.find('input,textarea,select,button,.btn').removeAttr('disabled')
-      $parent.find('.select2').select2('enable') if $.fn.select2
-    else
+      $parentVisible.find(".btn[data-dependent-fields-disabled='no']").removeAttr('disabled')
+      # remove the disabled state
+      $parentVisible.find('[data-dependent-fields-disabled]').removeAttr('data-dependent-fields-disabled')
+    if method != 'disable' # hide or default
+      $parentVisible.find(fieldsSelector).filter('[data-dependent-fields-required]').attr('required', 'required')
       $parent.show(duration)
   else
-    if method == 'disable'
+    $parent.addClass 'js-dependent-fields-hidden'
+    if method != 'hide' # disable or default
+      # store the disabled state
+      $fieldsAndBtns = $parent.find(fieldsAndBtnsSelector + ', .btn').not('[data-dependent-fields-disabled]')
+      $fieldsAndBtns.filter(':disabled').attr('data-dependent-fields-disabled', 'yes')
+      $fieldsAndBtns.not(':disabled').attr('data-dependent-fields-disabled', 'no')
+      # disable things
+      $fieldsAndBtns.filter(fieldsAndBtnsSelector).prop('disabled', true)
       # use attr instead of prop, because prop does not work with twitter bootstrap button
-      $parent.find('input,textarea,select,button,.btn').attr('disabled', 'disabled')
-      $parent.find('.select2').select2('disable') if $.fn.select2
-    else
+      $fieldsAndBtns.not(fieldsAndBtnsSelector).attr('disabled', 'disabled')
+    if method != 'disable' # hide or default
+      $parent.find(fieldsSelector).filter('[required]').removeAttr('required').attr('data-dependent-fields-required', 'required')
       $parent.hide(duration)
 
 
@@ -59,21 +77,15 @@ showOrHideDependentFieldsRadio = (duration = 'fast') ->
 
 bind = ->
   $selects = $('select')
-  $selects.not('[data-important]').each _.partial(showOrHideDependentFieldsSelect, 0)
-  $selects.filter('[data-important]').each _.partial(showOrHideDependentFieldsSelect, 0)
-
+  $selects.each _.partial(showOrHideDependentFieldsSelect, 0)
   $selects.change showOrHideDependentFieldsSelect
 
   $inputs = $('input[type=checkbox]')
-  $inputs.not('[data-important]').each _.partial(showOrHideDependentFieldsCheckbox, 0)
-  $inputs.filter('[data-important]').each _.partial(showOrHideDependentFieldsCheckbox, 0)
-
+  $inputs.each _.partial(showOrHideDependentFieldsCheckbox, 0)
   $inputs.change showOrHideDependentFieldsCheckbox
 
   $radios = $('input[type=radio]')
-  $radios.not('[data-important]').each _.partial(showOrHideDependentFieldsRadio, 0)
-  $radios.filter('[data-important]').each _.partial(showOrHideDependentFieldsRadio, 0)
-
+  $radios.each _.partial(showOrHideDependentFieldsRadio, 0)
   $radios.change showOrHideDependentFieldsRadio
 
 
